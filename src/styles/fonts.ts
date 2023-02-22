@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-
 import MontserratReg from '../assets/fonts/Montserrat/Montserrat-Regular.ttf'
 import MontserratBold from '../assets/fonts/Montserrat/Montserrat-Bold.ttf'
 import MontserratBoldItalic from '../assets/fonts/Montserrat/Montserrat-BoldItalic.ttf'
@@ -9,7 +8,6 @@ import RalewayRegular from '../assets/fonts/Raleway/Raleway-Regular.ttf'
 
 
 const FontStyles = createGlobalStyle`
-
 @font-face {
   font-family: 'Montserrat-Regular';
   src: url(${MontserratReg})   
@@ -35,6 +33,4 @@ const FontStyles = createGlobalStyle`
   src: url(${RalewayRegular})     
 }
 `;
-
-
 export default FontStyles;

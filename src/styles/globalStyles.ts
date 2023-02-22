@@ -9,6 +9,11 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     list-style: none;
   }
+
+  button {
+    border: none;
+    outline: none;
+  }
 `
 
 export default GlobalStyles;

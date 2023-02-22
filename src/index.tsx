@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import FontStyles from './styles/fonts';
 import GlobalStyles from './styles/globalStyles';
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <FontStyles />
     <GlobalStyles />
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
 
