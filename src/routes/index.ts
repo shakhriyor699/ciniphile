@@ -1,3 +1,21 @@
 
+type INavLinksType = {
+  title: string
+  url: string
+}
 
-export {}
+export const navLinks: INavLinksType[] = [
+  {
+    title: 'Главная',
+    url: '/'
+  },
+  {
+    title: 'Фильмы',
+    url: '/films'
+  },
+  {
+    title: 'Сериалы',
+    url: '/serials'
+  },
+]
+

@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from '../components/Header'
 
-const Home = () => {
+const Films = () => {
   return (
     <div>
-      <Header />
+       <Header />
     </div>
   )
 }
 
-export default Home
+export default Films
