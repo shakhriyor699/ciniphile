@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
+import { bannerReducer } from "../features/Banner/bannerSlice"
 
 
 
 const store = configureStore({
   reducer: {
-    
+    banner: bannerReducer
   },
   devTools: true
 })

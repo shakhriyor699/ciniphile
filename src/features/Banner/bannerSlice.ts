@@ -34,3 +34,5 @@ const bannerSlice = createSlice({
 
 
 const { addUpcomingMovie } = bannerSlice.actions
+
+export const bannerReducer = bannerSlice.reducer

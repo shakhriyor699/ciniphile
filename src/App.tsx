@@ -11,7 +11,9 @@ const Serials = lazy(() => import('./pages/Serials'));
 const Search = lazy(() => import('./pages/Search'));
 
 function App() {
-  
+ 
+
+
   return (
     <div className="App">
       <Suspense fallback='loading'>

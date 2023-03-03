@@ -129,9 +129,9 @@ const Navbar: FC = () => {
               </NavListItem>
             ))}
             <NavListItem>
-              <Link to={'/search'}>
+              <NavLinks to={'/search'}>
                 <img src={search} alt="search-icon" />
-              </Link>
+              </NavLinks>
             </NavListItem>
           </NavList>
         </NavWrapper>
