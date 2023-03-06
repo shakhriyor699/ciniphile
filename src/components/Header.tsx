@@ -12,6 +12,7 @@ const Header: FC = () => {
   return (
     <HeaderWrapper>
       <Navbar />
+
     </HeaderWrapper>
   )
 }

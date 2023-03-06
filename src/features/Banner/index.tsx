@@ -5,7 +5,9 @@ import BannerItem from './BannerItem'
 import { loadUpComingBanner } from './bannerSlice'
 
 const BannerWrapper = styled.div`
-  
+  position: relative;
+  height: 100vh;
+  /* overflow: hidden; */
 `
 
 
