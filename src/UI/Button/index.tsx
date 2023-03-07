@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import btnIcon from '../../assets/images/btn-icon.svg'
 
-export const Btn = styled.a`
+export const Btn = styled(Link)`
   background: #149A03;
   border-radius: 10px;
   padding: 15px 20px;
@@ -20,7 +21,7 @@ export const Btn = styled.a`
 
 const Button = () => {
   return (
-    <Btn href="">
+    <Btn to={'/'}>
       <img src={btnIcon} alt="btn-icon" />
       <span>Подробнее</span>
     </Btn>
