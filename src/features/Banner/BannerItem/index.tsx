@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-// import { Keyframes } from 'styled-components'
 import { keyframes } from 'styled-components'
-import banner from '../../../assets/images/banner.png'
 import Button from '../../../UI/Button'
-import sliderImg from '../../../assets/images/slier_img.png'
+import { ResultsTypes } from '../../../types/types'
+import { img_500, img_original } from '../../../config/config'
+
 
 const BannerItemWrapper = styled.div`
   height: 100%;
@@ -125,23 +125,34 @@ const BannerNextBar = styled.div`
     animation: ${anim} 10s linear;
   }
 `
+interface IResultsTypes {
+  movie: ResultsTypes,
+  slide: number,
+  next: ResultsTypes
+}
 
-const BannerItem: FC = () => {
+
+const BannerItem: FC<IResultsTypes> = ({ movie, slide, next }) => {
+
+
+
+
+
   return (
     <BannerItemWrapper>
-      <Img src={banner} alt="banner" />
+      <Img src={`${img_original}${movie.backdrop_path}`} alt="banner" />
       <BannerItemContent>
         <BannerItemInfo>
-          <BannerItemTitle>Мир Юрского периода: Господство</BannerItemTitle>
-          <BannerItemText>После уничтожения острова Нублар динозавры вырвались на свободу и стали полноправными обитателями планеты. Людям удается поддерживать хрупкое равновесие, определяющее мирное сосуществование на Земле. Но как долго человек сможет сохранять...</BannerItemText>
+          <BannerItemTitle>{movie.title}</BannerItemTitle>
+          <BannerItemText>{movie.overview}</BannerItemText>
           <Button />
         </BannerItemInfo>
       </BannerItemContent>
       <BannerItemNext>
-        <img src={sliderImg} alt="" />
+        <img src={`${img_500}${next.backdrop_path}`} alt="" />
         <BannerNextContent>
           <p>Следующий</p>
-          <p>Тор: Любовь и гром</p>
+          <p>{next.title}</p>
         </BannerNextContent>
         <BannerNextBar></BannerNextBar>
       </BannerItemNext>

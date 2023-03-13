@@ -3,6 +3,10 @@ import axios from "axios";
 import { IUpComingState, UpComingTypes } from "../../types/types";
 
 
+
+
+
+
 export const loadUpComingBanner = createAsyncThunk(
   '@@upcoming/loadBanner',
   async (_, { dispatch, rejectWithValue }) => {
@@ -18,7 +22,7 @@ export const loadUpComingBanner = createAsyncThunk(
 
 const initialState: IUpComingState = {
   loading: true,
-  list: null,
+  list: { results: [] },
   error: null
 }
 
@@ -33,6 +37,8 @@ const bannerSlice = createSlice({
 })
 
 
+
 const { addUpcomingMovie } = bannerSlice.actions
+
 
 export const bannerReducer = bannerSlice.reducer
