@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import Loader from '../../components/Loader'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import BannerItem from './BannerItem'
 import { loadUpComingBanner } from './bannerSlice'
@@ -15,7 +16,7 @@ const Banner: FC = () => {
   const [slide, setSlide] = useState<number>(0)
   const dispatch = useAppDispatch()
   const { results } = useAppSelector(state => state.banner.list)
-
+  const { loading } = useAppSelector(state => state.banner)
 
 
 
@@ -25,9 +26,14 @@ const Banner: FC = () => {
   }, [])
 
   useEffect(() => {
-    setTimeout(handleNextSlide, 10000)
+    let timeOut = setTimeout(handleNextSlide, 10000)
+
+    return () => {
+      clearTimeout(timeOut)
+    }
     // eslint-disable-next-line
   }, [slide])
+
 
 
 
@@ -40,16 +46,30 @@ const Banner: FC = () => {
   }
 
 
-  return (
-    <BannerWrapper>
-      {
-        results.map((item, i) => (
-          slide === i ?
-            <BannerItem key={item.id} movie={item} slide={slide} next={results[i + 1 === results.length ? 0 : i + 1]} /> : null
-        ))
-      }
+  const handleClickNext = () => {
+    if (results.length - 1 === slide) {
+      setSlide(0)
+    } else {
+      setSlide(slide + 1)
+    }
+  }
 
-    </BannerWrapper>
+  return (
+    <>
+      {loading && <Loader />}
+      <BannerWrapper>
+        {
+          results.map((item, i) => (
+            slide === i ?
+              <BannerItem
+                key={item.id}
+                movie={item}
+                handleClick={handleClickNext}
+                next={results[i + 1 === results.length ? 0 : i + 1]} /> : null
+          ))
+        }
+      </BannerWrapper>
+    </>
   )
 }
 

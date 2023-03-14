@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Loader from './components/Loader';
 // import Films from './pages/Films';
 import Home from './pages/Home';
 // import Search from './pages/Search';
@@ -11,12 +12,12 @@ const Serials = lazy(() => import('./pages/Serials'));
 const Search = lazy(() => import('./pages/Search'));
 
 function App() {
- 
+
 
 
   return (
     <div className="App">
-      <Suspense fallback='loading'>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/films' element={<Films />} />

@@ -61,6 +61,7 @@ const BannerItemNext = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   img {
     position: absolute;
@@ -126,17 +127,13 @@ const BannerNextBar = styled.div`
   }
 `
 interface IResultsTypes {
-  movie: ResultsTypes,
-  slide: number,
+  movie: ResultsTypes
   next: ResultsTypes
+  handleClick: () => void
 }
 
 
-const BannerItem: FC<IResultsTypes> = ({ movie, slide, next }) => {
-
-
-
-
+const BannerItem: FC<IResultsTypes> = ({ movie, next, handleClick }) => {
 
   return (
     <BannerItemWrapper>
@@ -148,7 +145,7 @@ const BannerItem: FC<IResultsTypes> = ({ movie, slide, next }) => {
           <Button />
         </BannerItemInfo>
       </BannerItemContent>
-      <BannerItemNext>
+      <BannerItemNext onClick={handleClick}>
         <img src={`${img_500}${next.backdrop_path}`} alt="" />
         <BannerNextContent>
           <p>Следующий</p>
