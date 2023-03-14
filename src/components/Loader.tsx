@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 
@@ -35,7 +35,7 @@ const LoaderWrapper = styled.div`
 
 
 
-const Loader = () => {
+const Loader: FC = () => {
   return (
     <LoaderWrapper>
       <span></span>
