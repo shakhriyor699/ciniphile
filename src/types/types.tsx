@@ -35,3 +35,14 @@ export interface IUpComingState {
   list: UpComingTypes,
   error: string | null
 }
+
+
+export type IMovie = {
+  page?: number,
+  results?: ResultsTypes[],
+  total_pages?: number,
+  total_results?: number
+} 
+
+
+

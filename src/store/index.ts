@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { bannerReducer } from "../features/Banner/bannerSlice"
+import { movieReducer } from "../features/Movies/moviesSlice"
 
 
 
 const store = configureStore({
   reducer: {
-    banner: bannerReducer
+    banner: bannerReducer,
+    movie: movieReducer
   },
   devTools: true
 })
