@@ -13,7 +13,6 @@ export const loadUpComingBanner = createAsyncThunk(
     const res = await axios.get<UpComingTypes>(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=1`)
     let { data } = res
     dispatch(addUpcomingMovie(data))
-    console.log(data);
 
     if (!res) {
       rejectWithValue('error')

@@ -10,8 +10,8 @@ interface IMovieState {
 
 export const loadMovies = createAsyncThunk(
   '@@movies/loadMovie',
-  async (page: number = 1, { dispatch, rejectWithValue }) => {
-    const res = await axios.get<IMovie>(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=${page}`)
+  async (_, { dispatch, rejectWithValue }) => {
+    const res = await axios.get<IMovie>(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=1`)
     const { data } = res
     dispatch(addMovies(data))
 
@@ -19,8 +19,6 @@ export const loadMovies = createAsyncThunk(
       rejectWithValue('error')
     }
   }
-
-
 )
 
 const initialState: IMovieState = {
