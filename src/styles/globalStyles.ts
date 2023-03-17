@@ -14,6 +14,10 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     outline: none;
   }
+
+  body {
+    background: #141414;
+  }
 `
 
 export default GlobalStyles;
