@@ -22,7 +22,7 @@ export const loadMovies = createAsyncThunk(
 )
 
 const initialState: IMovieState = {
-  list: {}
+  list: {results: []}
 }
 
 

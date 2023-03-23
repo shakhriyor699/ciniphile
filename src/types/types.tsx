@@ -39,7 +39,7 @@ export interface IUpComingState {
 
 export type IMovie = {
   page?: number,
-  results?: ResultsTypes[],
+  results: ResultsTypes[],
   total_pages?: number,
   total_results?: number
 } 
