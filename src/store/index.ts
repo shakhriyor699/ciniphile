@@ -1,13 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { bannerReducer } from "../features/Banner/bannerSlice"
 import { movieReducer } from "../features/Movies/moviesSlice"
+import { serialsReducer } from "../features/Serial/serialsSlice"
+import { topMovieReducer } from "../features/TopMovies/topMovieSlice"
 
 
 
 const store = configureStore({
   reducer: {
     banner: bannerReducer,
-    movie: movieReducer
+    movie: movieReducer,
+    serials: serialsReducer,
+    topMovies: topMovieReducer
   },
   devTools: true
 })
