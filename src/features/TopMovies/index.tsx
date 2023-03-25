@@ -21,6 +21,7 @@ const TopMoviesTitle = styled.h2`
   font-family: 'Montserrat-BoldItalic';
   color: #141414;
   text-transform: uppercase;
+  margin-bottom: 88px;
   span {
     color: #149A03;
     font-size: 50px;
@@ -30,29 +31,51 @@ const TopMoviesTitle = styled.h2`
   }
 `
 
-const SliderItem = styled(SwiperSlide)`
-  height: 462px;
-  transition: 0.3s;
-  position: relative;
- 
-
-  &:hover {
-    /* opacity: 0.5;  */
-  }
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
-
+const SwiperWrapper = styled(Swiper)`
+  
+  & .swiper-button-prev,
+  & .swiper-button-next {
+    display: none;
   }
 `
 
+const SliderItem = styled(SwiperSlide)`
+  height: 462px;
+  background: #141414;
+  box-shadow: 0px 20px 15px -10px rgba(0,0,0, 0.25);
+  border-radius: 10px;
+  position: relative;
+  
+  img {
+    width: 70%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    z-index: -99;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+`
+
 const SliderItemInfo = styled.div`
+    background: linear-gradient(90deg, #141414 30%, rgba(20,20,20,0) 102.08%);
+    position: relative;
+    z-index: 100;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
 
-
-
-
+    p {
+      width: 30%;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 150px;
+      font-family: 'Raleway-Bold';
+      font-style: italic;
+    }
 `
 
 const TopMovies = () => {
@@ -75,7 +98,7 @@ const TopMovies = () => {
         Топ
         <span>10</span>
       </TopMoviesTitle>
-      <Swiper
+      <SwiperWrapper
         modules={[Navigation]}
         breakpoints={{
           576: {
@@ -98,13 +121,13 @@ const TopMovies = () => {
           <SliderItem key={item.id}>
             <SliderItemInfo>
               <p>{i + 1}</p>
-              <Link to={'/'}>
-                <img src={`${img_original}${item.backdrop_path}`} alt="" />
-              </Link>
             </SliderItemInfo>
+            <Link to={'/'}>
+              <img src={`${img_original}${item.backdrop_path}`} alt="" />
+            </Link>
           </SliderItem>
         ))}
-      </Swiper>
+      </SwiperWrapper>
     </TopMoviesWrapper>
   )
 }
