@@ -8,6 +8,7 @@ export const Btn = styled(Link)`
   padding: 15px 20px;
   display: flex;
   column-gap: 10px;
+  width: max-content;
   span {
     font-weight: 400;
     font-size: 20px;
