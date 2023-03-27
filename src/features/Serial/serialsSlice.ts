@@ -12,7 +12,7 @@ export const loadSerials = createAsyncThunk(
   '@@movies/loadMovie',
   async (_, { dispatch, rejectWithValue }) => {
     const res = await axios.get<IMovie>(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=1`)
-    
+
     const { data } = res
     dispatch(addSerials(data))
 
@@ -23,7 +23,7 @@ export const loadSerials = createAsyncThunk(
 )
 
 const initialState: IMovieState = {
-  list: {results: []}
+  list: { results: [] }
 }
 
 

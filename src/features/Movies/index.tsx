@@ -95,9 +95,10 @@ const Movies: FC = () => {
   const dispatch = useAppDispatch()
   const { results } = useAppSelector(state => state.movie.list)
   const [movieInfo, setMovieInfo] = useState<ResultsTypes>()
+  const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
 
 
-  console.log(movieInfo);
+
 
 
   useEffect(() => {
@@ -153,7 +154,7 @@ const Movies: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      <MoviesInfo />
+      {movieInfo && <MoviesInfo openMovieInfo={openMovieInfo} movieInfoItem={movieInfo} />}
     </MoviesWrapper>
   )
 }

@@ -2,8 +2,11 @@ import React, { FC } from 'react'
 import styled from 'styled-components'
 import ActorsInfo from '../UI/ActorsInfo'
 import Button from '../UI/Button'
+import { CSSTransition } from 'react-transition-group';
+
 
 import banner from '../assets/images/banner.png'
+import { ResultsTypes } from '../types/types'
 
 const MoviesInfoWrapper = styled.div`
   height: 700px;
@@ -22,13 +25,14 @@ const CloseButton = styled.span`
       background: rgba(20,20,20, 0.7);
       border-radius: 50%;
       padding: 20px;
+      z-index: 100;
 `
 
 
 const MoviesInfoBlock = styled.div`
   height: 100%;
   position: relative;
- 
+  
 `
 
 const MainImg = styled.img`
@@ -37,48 +41,89 @@ const MainImg = styled.img`
     top: 0;
     object-fit: cover;
     height: 100%;
-    width: 50%;
+    width: 60%;
     z-index: -1;
 `
 const MoviesInfoItem = styled.div`
-   
    height: 100%;
+   position: relative;
+  z-index: 99;
+  background: linear-gradient(90deg, #000000 2.2%, rgba(0,0,0, 0.2) 70.82%, rgba(0,0,0,0) 80.73%);  
 `
 
 const MoviesInfoContent = styled.div`
-  
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding-left: 50px;
+
+  h3 {
+    color: #FFFFFF;
+    font-size: 50px;
+    line-height: 59px;
+    font-family: 'Raleway-Bold';
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+    font-family: 'Raleway-Regular';
+  }
 `
 
 const AboutMoviesBlock = styled.div`
-  
+    font-size: 20px;
+    line-height: 30px;
+    color: hsla(0,0%,100%,.6);
+    font-family: 'Montserrat-Bold';
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
 `
 
 const ActorsBlock = styled.div`
   
 `
 
-const MoviesInfo: FC = () => {
+interface IProps {
+  movieInfoItem?: ResultsTypes
+  openMovieInfo?: boolean
+}
+
+const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo }) => {
+
+
   return (
-    <MoviesInfoWrapper>
-      <CloseButton>X</CloseButton>
-      <MoviesInfoBlock>
-        <MainImg src={banner} alt="" />
-        <MoviesInfoItem>
-          <MoviesInfoContent>
-            <h3>Шан-Чи и легенда десяти колец</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus eligendi assumenda nulla rem minus dignissimos natus possimus architecto quo enim. Obcaecati quisquam quia et voluptatem blanditiis nostrum quidem. Tempore numquam quis provident saepe delectus. Sit quo odit laudantium reprehenderit! Deleniti quo praesentium cum, perferendis fugit soluta aperiam ex cumque eveniet...</p>
-            <AboutMoviesBlock>
-              <span></span>
-              <span></span>
-            </AboutMoviesBlock>
-            <ActorsBlock>
-              <ActorsInfo />
-            </ActorsBlock>
-            <Button />
-          </MoviesInfoContent>
-        </MoviesInfoItem>
-      </MoviesInfoBlock>
-    </MoviesInfoWrapper>
+    <CSSTransition
+      in={openMovieInfo} timeout={300}
+    >
+      
+        <MoviesInfoWrapper>
+          <CloseButton>X</CloseButton>
+          <MoviesInfoBlock>
+            <MainImg src={banner} alt="" />
+            <MoviesInfoItem>
+              <MoviesInfoContent>
+                <h3>{movieInfoItem?.title}</h3>
+                <p>{movieInfoItem?.overview}</p>
+                <AboutMoviesBlock>
+                  <span>2023</span>
+                  <span></span>
+                </AboutMoviesBlock>
+                <ActorsBlock>
+                  <ActorsInfo />
+                </ActorsBlock>
+                <Button />
+              </MoviesInfoContent>
+            </MoviesInfoItem>
+          </MoviesInfoBlock>
+        </MoviesInfoWrapper>
+    </CSSTransition>
+
   )
 }
 
