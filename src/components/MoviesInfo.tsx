@@ -7,6 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import banner from '../assets/images/banner.png'
 import { ResultsTypes } from '../types/types'
+import { img_original } from '../config/config';
 
 const MoviesInfoWrapper = styled.div`
   height: 700px;
@@ -89,41 +90,65 @@ const ActorsBlock = styled.div`
   
 `
 
+const Transitions = styled(CSSTransition)`
+  &.enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+&.enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+&.exit {
+  opacity: 1;
+}
+&.exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+`
+
 interface IProps {
   movieInfoItem?: ResultsTypes
   openMovieInfo?: boolean
+  setOpenMovieInfo: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo }) => {
+const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo }) => {
 
+  const handleClose = () => {
+    setOpenMovieInfo(false)
+  }
 
   return (
-    <CSSTransition
-      in={openMovieInfo} timeout={300}
+    <Transitions
+      in={openMovieInfo}
+      timeout={500}
+      unmountOnExit
     >
-      
-        <MoviesInfoWrapper>
-          <CloseButton>X</CloseButton>
-          <MoviesInfoBlock>
-            <MainImg src={banner} alt="" />
-            <MoviesInfoItem>
-              <MoviesInfoContent>
-                <h3>{movieInfoItem?.title}</h3>
-                <p>{movieInfoItem?.overview}</p>
-                <AboutMoviesBlock>
-                  <span>2023</span>
-                  <span></span>
-                </AboutMoviesBlock>
-                <ActorsBlock>
-                  <ActorsInfo />
-                </ActorsBlock>
-                <Button />
-              </MoviesInfoContent>
-            </MoviesInfoItem>
-          </MoviesInfoBlock>
-        </MoviesInfoWrapper>
-    </CSSTransition>
-
+      <MoviesInfoWrapper>
+        <CloseButton onClick={handleClose}>X</CloseButton>
+        <MoviesInfoBlock>
+          <MainImg src={`${img_original}${movieInfoItem?.backdrop_path}`} alt="" />
+          <MoviesInfoItem>
+            <MoviesInfoContent>
+              <h3>{movieInfoItem?.title}</h3>
+              <p>{movieInfoItem?.overview}</p>
+              <AboutMoviesBlock>
+                <span>2023</span>
+                <span></span>
+              </AboutMoviesBlock>
+              <ActorsBlock>
+                <ActorsInfo />
+              </ActorsBlock>
+              <Button />
+            </MoviesInfoContent>
+          </MoviesInfoItem>
+        </MoviesInfoBlock>
+      </MoviesInfoWrapper>
+    </Transitions>
   )
 }
 

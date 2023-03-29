@@ -108,6 +108,7 @@ const Movies: FC = () => {
 
   const handleMovie = (i: number) => {
     setMovieInfo(results[i])
+    setOpenMovieInfo(true)
   }
 
 
@@ -154,7 +155,7 @@ const Movies: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      {movieInfo && <MoviesInfo openMovieInfo={openMovieInfo} movieInfoItem={movieInfo} />}
+      { <MoviesInfo setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo} />}
     </MoviesWrapper>
   )
 }

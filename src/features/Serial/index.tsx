@@ -153,7 +153,7 @@ const Serial: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      <MoviesInfo />
+      {/* <MoviesInfo /> */}
     </MoviesWrapper>
   )
 }
