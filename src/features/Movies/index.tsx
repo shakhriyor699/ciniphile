@@ -91,14 +91,13 @@ const AllMoviesLink = styled(Link)`
     font-family: 'Raleway-Bold';
 `
 
+
+
 const Movies: FC = () => {
   const dispatch = useAppDispatch()
-  const { results } = useAppSelector(state => state.movie.list)
-  const [movieInfo, setMovieInfo] = useState<ResultsTypes>()
+  const { results } = useAppSelector(state => state.movies.list)
+  const [movieInfo, setMovieInfo] = useState<ResultsTypes | null>(null)
   const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
-
-
-
 
 
   useEffect(() => {
@@ -155,7 +154,7 @@ const Movies: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      { <MoviesInfo setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo} />}
+      {<MoviesInfo setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo?.id} />}
     </MoviesWrapper>
   )
 }

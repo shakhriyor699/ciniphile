@@ -1,5 +1,10 @@
 
 
+interface IGenres {
+  id: number,
+  name: string
+}
+
 export type ResultsTypes = {
   adult?: boolean,
   backdrop_path?: string,
@@ -15,7 +20,9 @@ export type ResultsTypes = {
   name?: string,
   video?: boolean,
   vote_average?: number,
-  vote_count?: number
+  vote_count?: number,
+  list?: [],
+  genres?: IGenres[] | undefined
 }
 
 
@@ -43,7 +50,7 @@ export type IMovie = {
   results: ResultsTypes[],
   total_pages?: number,
   total_results?: number
-} 
+}
 
 
 

@@ -1,13 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import styled from 'styled-components'
 import ActorsInfo from '../UI/ActorsInfo'
 import Button from '../UI/Button'
 import { CSSTransition } from 'react-transition-group';
 
 
-import banner from '../assets/images/banner.png'
+
 import { ResultsTypes } from '../types/types'
 import { img_original } from '../config/config';
+import { loadMovie } from '../features/Movie/movieSlice';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 const MoviesInfoWrapper = styled.div`
   height: 700px;
@@ -111,12 +113,23 @@ const Transitions = styled(CSSTransition)`
 `
 
 interface IProps {
-  movieInfoItem?: ResultsTypes
+  movieInfoItem?: number | undefined
   openMovieInfo?: boolean
   setOpenMovieInfo: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo }) => {
+
+  const dispatch = useAppDispatch()
+  const results = useAppSelector(state => state.movie.list)
+
+
+  console.log(results.genres);
+
+  useEffect(() => {
+    dispatch(loadMovie(movieInfoItem))
+    // eslint-disable-next-line
+  }, [movieInfoItem])
 
   const handleClose = () => {
     setOpenMovieInfo(false)
@@ -131,14 +144,16 @@ const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo
       <MoviesInfoWrapper>
         <CloseButton onClick={handleClose}>X</CloseButton>
         <MoviesInfoBlock>
-          <MainImg src={`${img_original}${movieInfoItem?.backdrop_path}`} alt="" />
+          <MainImg src={`${img_original}${results.backdrop_path}`} alt="" />
           <MoviesInfoItem>
             <MoviesInfoContent>
-              <h3>{movieInfoItem?.title}</h3>
-              <p>{movieInfoItem?.overview}</p>
+              <h3>{results.title}</h3>
+              <p>{results.overview}</p>
               <AboutMoviesBlock>
-                <span>2023</span>
-                <span></span>
+                <span>{results.release_date?.substring(0, 4)}, {results.genres?.map(item => (
+                  <span key={item.id}>{item.name},</span>
+                ))}</span>
+
               </AboutMoviesBlock>
               <ActorsBlock>
                 <ActorsInfo />

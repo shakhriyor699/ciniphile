@@ -26,7 +26,7 @@ const initialState: IMovieState = {
 }
 
 
-const movieSlice = createSlice({
+const moviesSlice = createSlice({
   name: '@@movies',
   initialState,
   reducers: {
@@ -37,7 +37,7 @@ const movieSlice = createSlice({
 })
 
 
-const { addMovies } = movieSlice.actions
+const { addMovies } = moviesSlice.actions
 
 
-export const movieReducer = movieSlice.reducer
+export const moviesReducer = moviesSlice.reducer
