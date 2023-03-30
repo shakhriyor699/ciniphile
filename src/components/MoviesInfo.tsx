@@ -10,6 +10,7 @@ import { ResultsTypes } from '../types/types'
 import { img_original } from '../config/config';
 import { loadMovie } from '../features/Movie/movieSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { loadSerial } from '../features/Serial/serialSlice';
 
 
 const MoviesInfoWrapper = styled.div`
@@ -145,62 +146,67 @@ const Loader = styled.div`
 
 interface IProps {
   movieInfoItem?: number | undefined
+  serialInfoItem?: number | undefined
   openMovieInfo?: boolean
   setOpenMovieInfo: React.Dispatch<React.SetStateAction<boolean>>
+  result: ResultsTypes,
+  loading: boolean
 }
 
-const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo }) => {
+const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem, openMovieInfo, setOpenMovieInfo }) => {
 
   const dispatch = useAppDispatch()
-  const results = useAppSelector(state => state.movie.list)
-  const { loading } = useAppSelector(state => state.movie)
-
 
   
+
+
 
   useEffect(() => {
     dispatch(loadMovie(movieInfoItem))
     // eslint-disable-next-line
   }, [movieInfoItem])
 
+  useEffect(() => {
+    dispatch(loadSerial(serialInfoItem))
+  }, [serialInfoItem])
+
   const handleClose = () => {
     setOpenMovieInfo(false)
   }
 
   return (
-    <>
-      {loading &&
-        <Loader>
-          <span></span>
-        </Loader>}
-      <Transitions
-        in={openMovieInfo}
-        timeout={500}
-        unmountOnExit
-      >
-        <MoviesInfoWrapper>
-          <CloseButton onClick={handleClose}>X</CloseButton>
-          <MoviesInfoBlock>
-            <MainImg src={`${img_original}${results.backdrop_path}`} alt="" />
-            <MoviesInfoItem>
-              <MoviesInfoContent>
-                <h3>{results.title}</h3>
-                <p>{results.overview}</p>
-                <AboutMoviesBlock>
-                  <span>{results.release_date?.substring(0, 4)}, {results.genres?.map(item => (
-                    <span key={item.id}>{item.name},</span>
-                  ))}</span>
 
-                </AboutMoviesBlock>
-                <ActorsBlock>
-                  <ActorsInfo />
-                </ActorsBlock>
-                <Button />
-              </MoviesInfoContent>
-            </MoviesInfoItem>
-          </MoviesInfoBlock>
-        </MoviesInfoWrapper>
-      </Transitions></>
+    <Transitions
+      in={openMovieInfo}
+      timeout={500}
+      unmountOnExit
+    >
+      <MoviesInfoWrapper>
+        {loading &&
+          <Loader>
+            <span></span>
+          </Loader>}
+        <CloseButton onClick={handleClose}>X</CloseButton>
+        <MoviesInfoBlock>
+          <MainImg src={`${img_original}${result.backdrop_path}`} alt="" />
+          <MoviesInfoItem>
+            <MoviesInfoContent>
+              <h3>{result.title}</h3>
+              <p>{result.overview}</p>
+              <AboutMoviesBlock>
+                <span>{result.release_date?.substring(0, 4)}, {result.genres?.map(item => (
+                  <span key={item.id}>{item.name},</span>
+                ))}</span>
+              </AboutMoviesBlock>
+              <ActorsBlock>
+                <ActorsInfo />
+              </ActorsBlock>
+              <Button />
+            </MoviesInfoContent>
+          </MoviesInfoItem>
+        </MoviesInfoBlock>
+      </MoviesInfoWrapper>
+    </Transitions>
   )
 }
 

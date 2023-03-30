@@ -95,7 +95,9 @@ const AllMoviesLink = styled(Link)`
 
 const Movies: FC = () => {
   const dispatch = useAppDispatch()
+  const result = useAppSelector(state => state.movie.list)
   const { results } = useAppSelector(state => state.movies.list)
+  const { loading } = useAppSelector(state => state.movie)
   const [movieInfo, setMovieInfo] = useState<ResultsTypes | null>(null)
   const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
 
@@ -154,7 +156,7 @@ const Movies: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      {<MoviesInfo setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo?.id} />}
+      {<MoviesInfo loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo?.id} />}
     </MoviesWrapper>
   )
 }

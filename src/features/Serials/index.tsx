@@ -93,11 +93,12 @@ const AllMoviesLink = styled(Link)`
 
 const Serial: FC = () => {
   const dispatch = useAppDispatch()
+  const result = useAppSelector(state => state.serial.list)
+  const { loading } = useAppSelector(state => state.serial)
   const { results } = useAppSelector(state => state.serials.list)
-  const [movieInfo, setMovieInfo] = useState<ResultsTypes>()
+  const [serialInfo, setSerialInfo] = useState<ResultsTypes | null>(null)
+  const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
 
-
-  console.log(movieInfo);
 
 
   useEffect(() => {
@@ -106,7 +107,8 @@ const Serial: FC = () => {
   }, [])
 
   const handleMovie = (i: number) => {
-    setMovieInfo(results[i])
+    setSerialInfo(results[i])
+    setOpenMovieInfo(true)
   }
 
 
@@ -153,7 +155,7 @@ const Serial: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      {/* <MoviesInfo /> */}
+      <MoviesInfo loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} serialInfoItem={serialInfo?.id} />
     </MoviesWrapper>
   )
 }
