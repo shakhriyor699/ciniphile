@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import ActorsInfo from '../UI/ActorsInfo'
 import Button from '../UI/Button'
 import { CSSTransition } from 'react-transition-group';
@@ -10,6 +10,7 @@ import { ResultsTypes } from '../types/types'
 import { img_original } from '../config/config';
 import { loadMovie } from '../features/Movie/movieSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
+
 
 const MoviesInfoWrapper = styled.div`
   height: 700px;
@@ -112,6 +113,36 @@ const Transitions = styled(CSSTransition)`
 }
 `
 
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`
+
+const Loader = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  span {
+    width: 70px;
+    height: 70px;
+    border: 3px solid gray;
+    border-top: 2px solid red;
+    border-radius: 50%;
+    animation: ${rotate} 1s infinite ease-in-out;
+  }
+`
+
 interface IProps {
   movieInfoItem?: number | undefined
   openMovieInfo?: boolean
@@ -122,9 +153,10 @@ const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo
 
   const dispatch = useAppDispatch()
   const results = useAppSelector(state => state.movie.list)
+  const { loading } = useAppSelector(state => state.movie)
 
 
-  console.log(results.genres);
+  console.log(loading);
 
   useEffect(() => {
     dispatch(loadMovie(movieInfoItem))
@@ -136,34 +168,39 @@ const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo
   }
 
   return (
-    <Transitions
-      in={openMovieInfo}
-      timeout={500}
-      unmountOnExit
-    >
-      <MoviesInfoWrapper>
-        <CloseButton onClick={handleClose}>X</CloseButton>
-        <MoviesInfoBlock>
-          <MainImg src={`${img_original}${results.backdrop_path}`} alt="" />
-          <MoviesInfoItem>
-            <MoviesInfoContent>
-              <h3>{results.title}</h3>
-              <p>{results.overview}</p>
-              <AboutMoviesBlock>
-                <span>{results.release_date?.substring(0, 4)}, {results.genres?.map(item => (
-                  <span key={item.id}>{item.name},</span>
-                ))}</span>
+    <>
+      {loading &&
+        <Loader>
+          <span></span>
+        </Loader>}
+      <Transitions
+        in={openMovieInfo}
+        timeout={500}
+        unmountOnExit
+      >
+        <MoviesInfoWrapper>
+          <CloseButton onClick={handleClose}>X</CloseButton>
+          <MoviesInfoBlock>
+            <MainImg src={`${img_original}${results.backdrop_path}`} alt="" />
+            <MoviesInfoItem>
+              <MoviesInfoContent>
+                <h3>{results.title}</h3>
+                <p>{results.overview}</p>
+                <AboutMoviesBlock>
+                  <span>{results.release_date?.substring(0, 4)}, {results.genres?.map(item => (
+                    <span key={item.id}>{item.name},</span>
+                  ))}</span>
 
-              </AboutMoviesBlock>
-              <ActorsBlock>
-                <ActorsInfo />
-              </ActorsBlock>
-              <Button />
-            </MoviesInfoContent>
-          </MoviesInfoItem>
-        </MoviesInfoBlock>
-      </MoviesInfoWrapper>
-    </Transitions>
+                </AboutMoviesBlock>
+                <ActorsBlock>
+                  <ActorsInfo />
+                </ActorsBlock>
+                <Button />
+              </MoviesInfoContent>
+            </MoviesInfoItem>
+          </MoviesInfoBlock>
+        </MoviesInfoWrapper>
+      </Transitions></>
   )
 }
 

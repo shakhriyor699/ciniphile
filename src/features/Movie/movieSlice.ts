@@ -4,15 +4,15 @@ import { ResultsTypes } from "../../types/types";
 
 
 interface IMovieState {
+  loading: boolean
   list: ResultsTypes
 }
 
 export const loadMovie = createAsyncThunk(
   '@@movie/loadMovie',
-  async (movieId: number | undefined, { dispatch }) => {
+  async (movieId: number | undefined) => {
     const res = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     const { data } = res
-    // console.log(data);
     return data
 
   }
@@ -20,6 +20,7 @@ export const loadMovie = createAsyncThunk(
 
 
 const initialState: IMovieState = {
+  loading: false,
   list: {}
 }
 
@@ -29,9 +30,16 @@ const movieSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.
-      addCase(loadMovie.fulfilled, (state, action) => {
+    builder
+      .addCase(loadMovie.fulfilled, (state, action) => {
+        state.loading = false
         state.list = action.payload
+      })
+      .addCase(loadMovie.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(loadMovie.rejected, (state) => {
+        state.loading = false
       })
   }
 })
