@@ -156,7 +156,7 @@ const MoviesInfo: FC<IProps> = ({ movieInfoItem, openMovieInfo, setOpenMovieInfo
   const { loading } = useAppSelector(state => state.movie)
 
 
-  console.log(loading);
+  
 
   useEffect(() => {
     dispatch(loadMovie(movieInfoItem))
