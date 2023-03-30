@@ -99,8 +99,6 @@ const Serial: FC = () => {
   const [serialInfo, setSerialInfo] = useState<ResultsTypes | null>(null)
   const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
 
-
-
   useEffect(() => {
     dispatch(loadSerials())
     // eslint-disable-next-line
