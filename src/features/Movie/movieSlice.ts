@@ -14,7 +14,6 @@ export const loadMovie = createAsyncThunk(
     const res = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     const { data } = res
     return data
-
   }
 )
 

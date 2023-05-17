@@ -5,6 +5,7 @@ import { moviesReducer } from "../features/Movies/moviesSlice"
 import { serialReducer } from "../features/Serial/serialSlice"
 import { serialsReducer } from "../features/Serials/serialsSlice"
 import { topMovieReducer } from "../features/TopMovies/topMovieSlice"
+import movieActorsReducer from '../features/Movie/movieActorsSlice'
 
 
 
@@ -15,7 +16,9 @@ const store = configureStore({
     serials: serialsReducer,
     topMovies: topMovieReducer,
     movie: movieReducer,
-    serial: serialReducer
+    serial: serialReducer,
+    movieActors: movieActorsReducer
+
   },
   devTools: true
 })

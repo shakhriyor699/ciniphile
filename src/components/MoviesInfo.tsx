@@ -4,13 +4,12 @@ import ActorsInfo from '../UI/ActorsInfo'
 import Button from '../UI/Button'
 import { CSSTransition } from 'react-transition-group';
 
-
-
 import { ResultsTypes } from '../types/types'
 import { img_original } from '../config/config';
 import { loadMovie } from '../features/Movie/movieSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadSerial } from '../features/Serial/serialSlice';
+import { loadMovieActors } from '../features/Movie/movieActorsSlice';
 
 
 const MoviesInfoWrapper = styled.div`
@@ -156,13 +155,14 @@ interface IProps {
 const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem, openMovieInfo, setOpenMovieInfo }) => {
 
   const dispatch = useAppDispatch()
-
-  
+  const { list } = useAppSelector(state => state.movieActors)
 
 
 
   useEffect(() => {
     dispatch(loadMovie(movieInfoItem))
+    dispatch(loadMovieActors(movieInfoItem))
+
     // eslint-disable-next-line
   }, [movieInfoItem])
 
