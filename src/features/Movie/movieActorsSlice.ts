@@ -17,9 +17,9 @@ type MovieType = {
 }
 
 type MovieActorsType = {
-  id?: number,
-  cast?: MovieType[],
-  crew?: MovieType[]
+  id: number,
+  cast: MovieType[],
+  crew: MovieType[]
 }
 
 
@@ -36,7 +36,11 @@ interface IMovieActorsState {
 }
 
 const initialState: IMovieActorsState = {
-  list: {}
+  list: {
+    id: 0,
+    cast: [],
+    crew: []
+  }
 }
 
 const movieActorsSlice = createSlice({

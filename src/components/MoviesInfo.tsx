@@ -10,6 +10,7 @@ import { loadMovie } from '../features/Movie/movieSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadSerial } from '../features/Serial/serialSlice';
 import { loadMovieActors } from '../features/Movie/movieActorsSlice';
+import { Link } from 'react-router-dom';
 
 
 const MoviesInfoWrapper = styled.div`
@@ -90,7 +91,11 @@ const AboutMoviesBlock = styled.div`
 `
 
 const ActorsBlock = styled.div`
-  
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 `
 
 const Transitions = styled(CSSTransition)`
@@ -155,8 +160,8 @@ interface IProps {
 const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem, openMovieInfo, setOpenMovieInfo }) => {
 
   const dispatch = useAppDispatch()
-  const { list } = useAppSelector(state => state.movieActors)
-
+  const { cast } = useAppSelector(state => state.movieActors.list)
+  const actorsName = [...cast].splice(0, 4)
 
 
   useEffect(() => {
@@ -175,7 +180,6 @@ const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem
   }
 
   return (
-
     <Transitions
       in={openMovieInfo}
       timeout={500}
@@ -191,17 +195,21 @@ const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem
           <MainImg src={`${img_original}${result.backdrop_path}`} alt="" />
           <MoviesInfoItem>
             <MoviesInfoContent>
-              <h3>{result.title}</h3>
+              <h3>{result.title || result.name}</h3>
               <p>{result.overview}</p>
               <AboutMoviesBlock>
-                <span>{result.release_date?.substring(0, 4)}, {result.genres?.map(item => (
-                  <span key={item.id}>{item.name},</span>
+                <span>{result.release_date?.substring(0, 4) || result.first_air_date?.substring(0, 4)}, {result.genres?.map(item => (
+                  <span key={item.id}>{item.name ? item.name + ',' : ''} </span>
                 ))}</span>
               </AboutMoviesBlock>
               <ActorsBlock>
-                <ActorsInfo />
+                {
+                  actorsName.map(item => (
+                    <ActorsInfo key={item.id} {...item} />
+                  ))
+                }
               </ActorsBlock>
-              <Button />
+              <Button page={'films'} id={result.id} />
             </MoviesInfoContent>
           </MoviesInfoItem>
         </MoviesInfoBlock>

@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import btnIcon from '../../assets/images/btn-icon.svg'
@@ -17,12 +18,15 @@ export const Btn = styled(Link)`
     font-family: 'Raleway-Regular';
   }
 `
+interface IButton {
+  page: string,
+  id: number | undefined
+}
 
 
-
-const Button = () => {
+const Button: FC<IButton> = ({ page, id }) => {
   return (
-    <Btn to={'/'}>
+    <Btn to={`/${page}/${id}`}>
       <img src={btnIcon} alt="btn-icon" />
       <span>Подробнее</span>
     </Btn>

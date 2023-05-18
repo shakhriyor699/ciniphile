@@ -142,7 +142,7 @@ const BannerItem: FC<IResultsTypes> = ({ movie, next, handleClick }) => {
         <BannerItemInfo>
           <BannerItemTitle>{movie.title}</BannerItemTitle>
           <BannerItemText>{movie.overview}</BannerItemText>
-          <Button />
+          <Button page='films' id={movie.id} />
         </BannerItemInfo>
       </BannerItemContent>
       <BannerItemNext onClick={handleClick}>
