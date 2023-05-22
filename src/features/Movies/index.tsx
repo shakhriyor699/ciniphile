@@ -100,6 +100,7 @@ const Movies: FC = () => {
   const { loading } = useAppSelector(state => state.movie)
   const [movieInfo, setMovieInfo] = useState<ResultsTypes | null>(null)
   const [openMovieInfo, setOpenMovieInfo] = useState<boolean>(false)
+  
 
 
   useEffect(() => {
