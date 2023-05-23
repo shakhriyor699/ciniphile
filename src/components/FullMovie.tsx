@@ -24,6 +24,7 @@ const MainBlock = styled.div`
       top: 0;
       object-fit: cover;
       height: 100%;
+      width: 60%;
       filter: blur(10px);
     }
 `
@@ -41,10 +42,30 @@ const MainBlockInfo = styled.div`
 
 const Left = styled.div`
   
+
+  h1 {
+    font-size: 50px;
+    line-height: 59px;
+    color: #FFFFFF;
+    font-family: 'Raleway-Bold';
+  }
+  p {
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+    font-family: 'Raleway-Regular';
+    max-width: 935px;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 25px;
+  }
 `
 
 const Release = styled.span`
-  display: block;
+  font-size: 20px;
+  line-height: 30px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Montserrat-Bold';
     &:not(:last-child):after {
       content: ', ';
       margin-right: 10px;
@@ -52,7 +73,11 @@ const Release = styled.span`
 `
 
 const Genres = styled.div`
-  
+  font-size: 20px;
+  line-height: 30px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Montserrat-Bold';
+
 `
 
 const GenresSpan = styled.span`
@@ -62,10 +87,16 @@ const GenresSpan = styled.span`
     color: #FFFFFF;
   }
 `
+const Right = styled.div`
+  
+`
 
 const FullMovie: FC = () => {
   const { filmsId } = useParams()
   const [movies, setMovies] = useState<ResultsTypes>({})
+
+  console.log(movies);
+  
 
 
   useEffect(() => {
@@ -91,7 +122,7 @@ const FullMovie: FC = () => {
               <h1>{movies.title}</h1>
               <p>{movies.overview}</p>
               <Genres>
-                <span>{movies.release_date?.substring(0, 4)}, </span>
+                <Release>{movies.release_date?.substring(0, 4)}</Release>
                 {
 
                   movies.genres?.map(genre => (
@@ -100,6 +131,9 @@ const FullMovie: FC = () => {
                 }
               </Genres>
             </Left>
+            <Right>
+                <img src={`${img_500}${movies.poster_path}`} alt="" />
+            </Right>
           </MainBlockInfo>
         </MainBlock>
       </Main>
