@@ -1,10 +1,21 @@
 import React, { FC, useState, useEffect } from 'react'
 import Header from './Header'
+import YouTube, { YouTubeProps } from 'react-youtube';
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { ResultsTypes } from '../types/types'
 import axios from 'axios'
 import { img_500 } from '../config/config'
+
+
+const opt: YouTubeProps['opts'] = {
+  height: '390',
+  width: '640',
+  playerVars: {
+    // https://developers.google.com/youtube/player_parameters
+    autoplay: 1,
+  },
+}
 
 const Main = styled.main`
   padding-bottom: 70px;
@@ -38,6 +49,8 @@ const MainBlockInfo = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 30px;
 `
 
 const Left = styled.div`
@@ -96,7 +109,7 @@ const FullMovie: FC = () => {
   const [movies, setMovies] = useState<ResultsTypes>({})
 
   console.log(movies);
-  
+
 
 
   useEffect(() => {
@@ -107,9 +120,6 @@ const FullMovie: FC = () => {
     const { data } = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${filmsId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     setMovies(data)
   }
-
-
-
 
   return (
     <>
@@ -132,7 +142,7 @@ const FullMovie: FC = () => {
               </Genres>
             </Left>
             <Right>
-                <img src={`${img_500}${movies.poster_path}`} alt="" />
+              <img src={`${img_500}${movies.poster_path}`} alt="" />
             </Right>
           </MainBlockInfo>
         </MainBlock>
