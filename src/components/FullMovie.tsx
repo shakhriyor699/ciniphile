@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import { ResultsTypes } from '../types/types'
 import axios from 'axios'
 import { img_500 } from '../config/config'
+import { loadTrailer, selectTrailer } from '../features/Trailer';
+import { useAppDispatch, useAppSelector } from '../hooks';
 
 
 const opt: YouTubeProps['opts'] = {
@@ -107,9 +109,14 @@ const Right = styled.div`
 const FullMovie: FC = () => {
   const { filmsId } = useParams()
   const [movies, setMovies] = useState<ResultsTypes>({})
+  const dispatch = useAppDispatch()
+  const  results  = useAppSelector(selectTrailer)
 
   console.log(movies);
 
+  useEffect(() => {
+    dispatch(loadTrailer({ type: 'movie', id: filmsId }))
+  }, [])
 
 
   useEffect(() => {
@@ -119,6 +126,10 @@ const FullMovie: FC = () => {
   const getMovies = async () => {
     const { data } = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${filmsId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     setMovies(data)
+  }
+
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    event.target.pauseVideo();
   }
 
   return (
@@ -146,6 +157,7 @@ const FullMovie: FC = () => {
             </Right>
           </MainBlockInfo>
         </MainBlock>
+        <YouTube videoId="2g811Eo7K8U" opts={opt} onReady={onPlayerReady} />
       </Main>
     </>
   )

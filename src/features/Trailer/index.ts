@@ -19,13 +19,17 @@ type TrailerType = {
   results: TrailerVideoType[]
 }
 
+type argAsyncType = {
+  type: string,
+  id: string | undefined
+}
 
 // https://api.themoviedb.org/3/tv/500/videos?language=en-US
 // https://api.themoviedb.org/3/movie/505/videos?language=en-US
 
-export const loadTrailer = createAsyncThunk<TrailerType, number | string>(
+export const loadTrailer = createAsyncThunk<TrailerType, argAsyncType>(
   '@@trailer/loadTrailer',
-  async (id, type) => {
+  async ({ type, id }) => {
     const { data } = await axios.get<TrailerType>(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     return data
   }
@@ -55,3 +59,4 @@ const trailerSlice = createSlice({
 })
 
 export default trailerSlice.reducer
+export const selectTrailer = (state: TrailerType) => state.results
