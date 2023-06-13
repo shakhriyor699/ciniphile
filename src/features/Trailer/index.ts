@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RootState } from "../../store";
 
 type TrailerVideoType = {
   iso_639_1: string,
@@ -30,7 +31,7 @@ type argAsyncType = {
 export const loadTrailer = createAsyncThunk<TrailerType, argAsyncType>(
   '@@trailer/loadTrailer',
   async ({ type, id }) => {
-    const { data } = await axios.get<TrailerType>(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
+    const { data } = await axios.get<TrailerType>(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-EN`)
     return data
   }
 )
@@ -40,10 +41,7 @@ interface ITrailerState {
 }
 
 const initialState: ITrailerState = {
-  trailer: {
-    id: 0,
-    results: []
-  },
+  trailer: {} as TrailerType,
 }
 
 const trailerSlice = createSlice({
@@ -59,4 +57,4 @@ const trailerSlice = createSlice({
 })
 
 export default trailerSlice.reducer
-export const selectTrailer = (state: TrailerType) => state.results
+export const selectTrailer = (state: RootState) => state.trailer.trailer.results

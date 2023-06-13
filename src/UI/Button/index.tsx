@@ -30,7 +30,6 @@ const Button: FC<IButton> = ({ page, id }) => {
       <img src={btnIcon} alt="btn-icon" />
       <span>Подробнее</span>
     </Btn>
-
   )
 }
 
