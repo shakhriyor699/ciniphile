@@ -8,6 +8,8 @@ import axios from 'axios'
 import { img_500 } from '../config/config'
 import { loadTrailer, selectTrailer } from '../features/Trailer';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { loadMovieActors } from '../features/Movie/movieActorsSlice';
+import ActorsInfo from '../UI/ActorsInfo';
 
 
 const opt: YouTubeProps['opts'] = {
@@ -62,7 +64,7 @@ const MainBlockInfo = styled.div`
 `
 
 const Left = styled.div`
-  
+  width: 60%;
 
   h1 {
     font-size: 50px;
@@ -108,7 +110,14 @@ const GenresSpan = styled.span`
     color: #FFFFFF;
   }
 `
-const Right = styled.div``
+const Right = styled.div`
+  width: 40%;
+
+  img {
+    width: 400px;
+    border-radius: 10px;
+  }
+`
 
 const YouTubeBlock = styled.div`
     position: absolute;
@@ -153,6 +162,47 @@ const Button = styled.button`
     }
 `
 
+const ActorsBlock = styled.div`
+  width: 100%;
+  h2 {
+    margin-bottom: 30px;
+    color: #fff;
+    line-height: 30px;
+    font-size: 16px;
+    font-family: 'Raleway-Regular';
+  }
+`
+
+const ActorsBlockItems = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`
+
+const BudjetBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  gap: 80px;
+  width: 100%;
+  z-index: 99;
+`
+
+const BudjetBlockItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  span {
+    font-size: 20px;
+    line-height: 30px;
+    color: #fff;
+    font-family: 'Raleway-Regular';
+  }
+`
+
 const FullMovie: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { filmsId } = useParams()
@@ -160,14 +210,36 @@ const FullMovie: FC = () => {
   const dispatch = useAppDispatch()
   const results = useAppSelector(selectTrailer)
   const key = results ? results.filter(item => item.type === 'Trailer')[0].key : ''
+  const { cast } = useAppSelector(state => state.movieActors.list)
+  const actorsName = [...cast].splice(0, 6)
+  const budgetInfo = [
+    {
+      name: 'Бюджет',
+      info: `$${movies.budget}`
+    },
+    {
+      name: 'Сборы',
+      info: `$${movies.revenue}`
+    },
+    {
+      name: 'Статус',
+      info: movies.status
+    },
+    {
+      name: 'Исходное название',
+      info: movies.original_title
+    },
+  ]
 
 
 
 
-  // console.log(movies);
+
+  console.log(movies);
 
   useEffect(() => {
     dispatch(loadTrailer({ type: 'movie', id: filmsId }))
+    dispatch(loadMovieActors(Number(filmsId)))
   }, [])
 
 
@@ -230,7 +302,26 @@ const FullMovie: FC = () => {
             <Right>
               <img src={`${img_500}${movies.poster_path}`} alt="" />
             </Right>
+            <ActorsBlock>
+              <h2>В главный ролях</h2>
+              <ActorsBlockItems>
+                {
+                  actorsName && actorsName.map(item => (
+                    <ActorsInfo key={item.id} {...item} />
+                  ))
+                }
+              </ActorsBlockItems>
+            </ActorsBlock>
           </MainBlockInfo>
+          <BudjetBlock>
+            {budgetInfo.map(item => (
+              <BudjetBlockItem key={item.name}>
+                <span>{item.name}</span>
+                <span>{item.info}</span>
+              </BudjetBlockItem>
+            ))}
+
+          </BudjetBlock>
         </MainBlock>
         {isOpen && <YouTubeBlock>
           <YouTube videoId={key} opts={opt} onReady={onPlayerReady} />

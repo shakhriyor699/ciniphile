@@ -10,7 +10,7 @@ import { loadMovie } from '../features/Movie/movieSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadSerial } from '../features/Serial/serialSlice';
 import { loadMovieActors } from '../features/Movie/movieActorsSlice';
-import { Link } from 'react-router-dom';
+
 
 
 const MoviesInfoWrapper = styled.div`

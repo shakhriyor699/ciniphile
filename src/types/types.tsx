@@ -10,6 +10,8 @@ export type ResultsTypes = {
   backdrop_path?: string,
   genre_ids?: number[],
   id?: number,
+  budget?: number,
+  revenue?: number,
   original_language?: string,
   original_title?: string,
   overview?: string,
@@ -23,7 +25,8 @@ export type ResultsTypes = {
   vote_average?: number,
   vote_count?: number,
   list?: [],
-  genres?: IGenres[] | undefined
+  genres?: IGenres[] | undefined,
+  status?: string
 }
 
 
