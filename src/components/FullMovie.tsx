@@ -203,6 +203,10 @@ const BudjetBlockItem = styled.div`
   }
 `
 
+const RecomendedBlock = styled.div`
+
+`
+
 const FullMovie: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { filmsId } = useParams()
@@ -320,8 +324,10 @@ const FullMovie: FC = () => {
                 <span>{item.info}</span>
               </BudjetBlockItem>
             ))}
-
           </BudjetBlock>
+          <RecomendedBlock>
+              <h2>Рекомендации</h2>
+          </RecomendedBlock>
         </MainBlock>
         {isOpen && <YouTubeBlock>
           <YouTube videoId={key} opts={opt} onReady={onPlayerReady} />
