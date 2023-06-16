@@ -5,11 +5,16 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { ResultsTypes } from '../types/types'
 import axios from 'axios'
-import { img_500 } from '../config/config'
+import { img_500, img_original } from '../config/config'
 import { loadTrailer, selectTrailer } from '../features/Trailer';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadMovieActors } from '../features/Movie/movieActorsSlice';
 import ActorsInfo from '../UI/ActorsInfo';
+import { loadRecomendations,  selectRecomendations } from '../features/recomendations';
+import { Container } from './Container';
+import { Link } from 'react-router-dom';
+import Loader from './Loader';
+import { loadMovie, selectFilm, selectLoading } from '../features/Movie/movieSlice';
 
 
 const opt: YouTubeProps['opts'] = {
@@ -44,7 +49,6 @@ const MainBlock = styled.div`
       right: 0;
       top: 0;
       object-fit: cover;
-      height: 100%;
       width: 60%;
       filter: blur(10px);
     }
@@ -204,7 +208,56 @@ const BudjetBlockItem = styled.div`
 `
 
 const RecomendedBlock = styled.div`
+  margin-top: 50px;
+  margin-bottom: 70px;
+  width: 100%;
 
+  h2 {
+    font-family: 'Raleway-Bold';
+    font-size: 22px;
+    line-height: 26px;
+    color: #fff;
+  }
+`
+const RecomendationsItems = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 25px;
+    margin-top: 50px;
+  
+`
+
+
+const RecomendationsItem = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 15px 28px;
+  background: linear-gradient(358.77deg,#000000 .69%,rgba(0,0,0,.723958) 37.71%,rgba(0,0,0,0) 72.49%);
+  border-radius: 10px;
+  border: 1px solid #000000;
+  overflow: hidden;
+  min-height: 450px;
+  justify-content: flex-end;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -2;
+  }
+
+  span {
+    font-size: 18px;
+    line-height: 21px;
+    color: #fff;
+    font-family: 'Raleway-Bold';
+  }
 `
 
 const FullMovie: FC = () => {
@@ -213,6 +266,9 @@ const FullMovie: FC = () => {
   const [movies, setMovies] = useState<ResultsTypes>({})
   const dispatch = useAppDispatch()
   const results = useAppSelector(selectTrailer)
+  const recomendations = useAppSelector(selectRecomendations)
+  const loading = useAppSelector(selectLoading)
+  const data = useAppSelector(selectFilm)
   const key = results ? results.filter(item => item.type === 'Trailer')[0].key : ''
   const { cast } = useAppSelector(state => state.movieActors.list)
   const actorsName = [...cast].splice(0, 6)
@@ -235,21 +291,26 @@ const FullMovie: FC = () => {
     },
   ]
 
+ 
 
 
+  
+  
+  // console.log(recomendations);
 
 
-  console.log(movies);
+  // console.log(movies);
 
   useEffect(() => {
     dispatch(loadTrailer({ type: 'movie', id: filmsId }))
     dispatch(loadMovieActors(Number(filmsId)))
+    dispatch(loadRecomendations({ type: 'movie', id: filmsId }))
   }, [])
 
 
   useEffect(() => {
-    getMovies()
-  }, [])
+    dispatch(loadMovie(Number(filmsId)))
+  }, [filmsId])
 
   useEffect(() => {
     if (isOpen) {
@@ -269,11 +330,6 @@ const FullMovie: FC = () => {
     setIsOpen(false)
   }
 
-  const getMovies = async () => {
-    const { data } = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${filmsId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
-    setMovies(data)
-  }
-
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     event.target.pauseVideo();
   }
@@ -283,11 +339,11 @@ const FullMovie: FC = () => {
       <Header />
       <Main isOpen={isOpen}>
         <MainBlock>
-          <img src={`${img_500}${movies.backdrop_path}`} alt="" />
+          <img src={`${img_500}${data.backdrop_path}`} alt="" />
           <MainBlockInfo>
             <Left>
-              <h1>{movies.title}</h1>
-              <p>{movies.overview}</p>
+              <h1>{data.title}</h1>
+              <p>{data.overview}</p>
               <Genres>
                 <Release>{movies.release_date?.substring(0, 4)}</Release>
                 {
@@ -304,7 +360,7 @@ const FullMovie: FC = () => {
               </Button>
             </Left>
             <Right>
-              <img src={`${img_500}${movies.poster_path}`} alt="" />
+              <img src={`${img_500}${data.poster_path}`} alt="" />
             </Right>
             <ActorsBlock>
               <h2>В главный ролях</h2>
@@ -325,8 +381,21 @@ const FullMovie: FC = () => {
               </BudjetBlockItem>
             ))}
           </BudjetBlock>
+          {loading && <Loader />}
           <RecomendedBlock>
+            <Container>
               <h2>Рекомендации</h2>
+              <RecomendationsItems>
+                {
+                  recomendations && [...recomendations].splice(0, 4).map(item => (
+                    <RecomendationsItem to={`/films/${item.id}`} key={item.id}>
+                      <img src={`${img_original}${item.backdrop_path}`} alt="" />
+                      <span>{item.title}</span>
+                    </RecomendationsItem>
+                  ))
+                }
+              </RecomendationsItems>
+            </Container>
           </RecomendedBlock>
         </MainBlock>
         {isOpen && <YouTubeBlock>

@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ResultsTypes } from "../../types/types";
+import { RootState } from "../../store";
 
 
 interface IMovieState {
@@ -8,9 +9,9 @@ interface IMovieState {
   list: ResultsTypes
 }
 
-export const loadMovie = createAsyncThunk(
+export const loadMovie = createAsyncThunk<ResultsTypes, number | undefined>(
   '@@movie/loadMovie',
-  async (movieId: number | undefined) => {
+  async (movieId) => {
     const res = await axios.get<ResultsTypes>(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
     const { data } = res
     return data
@@ -46,3 +47,5 @@ const movieSlice = createSlice({
 
 
 export const movieReducer = movieSlice.reducer
+export const selectLoading = (state: RootState) => state.movie.loading
+export const selectFilm = (state: RootState) => state.movie.list
