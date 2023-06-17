@@ -263,7 +263,6 @@ const RecomendationsItem = styled(Link)`
 const FullMovie: FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { filmsId } = useParams()
-  const [movies, setMovies] = useState<ResultsTypes>({})
   const dispatch = useAppDispatch()
   const results = useAppSelector(selectTrailer)
   const recomendations = useAppSelector(selectRecomendations)
@@ -275,31 +274,21 @@ const FullMovie: FC = () => {
   const budgetInfo = [
     {
       name: 'Бюджет',
-      info: `$${movies.budget}`
+      info: `$${data.budget}`
     },
     {
       name: 'Сборы',
-      info: `$${movies.revenue}`
+      info: `$${data.revenue}`
     },
     {
       name: 'Статус',
-      info: movies.status
+      info: data.status
     },
     {
       name: 'Исходное название',
-      info: movies.original_title
+      info: data.original_title
     },
   ]
-
- 
-
-
-  
-  
-  // console.log(recomendations);
-
-
-  // console.log(movies);
 
   useEffect(() => {
     dispatch(loadTrailer({ type: 'movie', id: filmsId }))
@@ -345,9 +334,9 @@ const FullMovie: FC = () => {
               <h1>{data.title}</h1>
               <p>{data.overview}</p>
               <Genres>
-                <Release>{movies.release_date?.substring(0, 4)}</Release>
+                <Release>{data.release_date?.substring(0, 4)}</Release>
                 {
-                  movies.genres?.map(genre => (
+                  data.genres?.map(genre => (
                     <GenresSpan key={genre.id}>{genre.name}</GenresSpan>
                   ))
                 }
