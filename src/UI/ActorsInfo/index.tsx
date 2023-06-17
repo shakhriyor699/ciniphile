@@ -32,7 +32,7 @@ const ActorsInfo: FC<IActorsInfo> = ({ original_name, profile_path }) => {
 
   return (
     <ActorsInfoBlock>
-      <img src={`${img_original}${profile_path}`} alt="" />
+      <img src={`${img_original}${profile_path}`} alt="" loading='lazy' />
       <ActorName>{original_name}</ActorName>
     </ActorsInfoBlock>
   )

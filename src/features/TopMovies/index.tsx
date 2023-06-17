@@ -123,7 +123,7 @@ const TopMovies = () => {
               <p>{i + 1}</p>
             </SliderItemInfo>
             <Link to={'/'}>
-              <img src={`${img_original}${item.backdrop_path}`} alt="" />
+              <img src={`${img_original}${item.backdrop_path}`} alt="" loading='lazy' />
             </Link>
           </SliderItem>
         ))}

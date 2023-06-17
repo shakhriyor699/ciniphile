@@ -339,7 +339,7 @@ const FullMovie: FC = () => {
       <Header />
       <Main isOpen={isOpen}>
         <MainBlock>
-          <img src={`${img_500}${data.backdrop_path}`} alt="" />
+          <img src={`${img_500}${data.backdrop_path}`} alt="" loading='lazy' />
           <MainBlockInfo>
             <Left>
               <h1>{data.title}</h1>
@@ -360,7 +360,7 @@ const FullMovie: FC = () => {
               </Button>
             </Left>
             <Right>
-              <img src={`${img_500}${data.poster_path}`} alt="" />
+              <img src={`${img_500}${data.poster_path}`} alt="" loading='lazy' />
             </Right>
             <ActorsBlock>
               <h2>В главный ролях</h2>
@@ -389,7 +389,7 @@ const FullMovie: FC = () => {
                 {
                   recomendations && [...recomendations].splice(0, 4).map(item => (
                     <RecomendationsItem to={`/films/${item.id}`} key={item.id}>
-                      <img src={`${img_original}${item.backdrop_path}`} alt="" />
+                      <img src={`${img_original}${item.backdrop_path}`} alt="" loading='lazy' />
                       <span>{item.title}</span>
                     </RecomendationsItem>
                   ))

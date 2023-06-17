@@ -143,7 +143,7 @@ const Movies: FC = () => {
           results?.map((item, i) => (
             <SliderItem onClick={() => handleMovie(i)} key={item.id}>
               <Link to={'/'}>
-                <img src={`${img_original}${item.backdrop_path}`} alt="" />
+                <img src={`${img_original}${item.backdrop_path}`} alt="" loading='lazy' />
               </Link>
               <SliderItemTitle>
                 {item.title}

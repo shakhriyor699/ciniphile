@@ -137,7 +137,7 @@ const BannerItem: FC<IResultsTypes> = ({ movie, next, handleClick }) => {
 
   return (
     <BannerItemWrapper>
-      <Img src={`${img_original}${movie.backdrop_path}`} alt="banner" />
+      <Img src={`${img_original}${movie.backdrop_path}`} alt="banner" loading='lazy' />
       <BannerItemContent>
         <BannerItemInfo>
           <BannerItemTitle>{movie.title}</BannerItemTitle>
@@ -146,7 +146,7 @@ const BannerItem: FC<IResultsTypes> = ({ movie, next, handleClick }) => {
         </BannerItemInfo>
       </BannerItemContent>
       <BannerItemNext onClick={handleClick}>
-        <img src={`${img_500}${next.backdrop_path}`} alt="" />
+        <img src={`${img_500}${next.backdrop_path}`} alt="" loading='lazy' />
         <BannerNextContent>
           <p>Следующий</p>
           <p>{next.title}</p>

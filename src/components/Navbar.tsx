@@ -120,7 +120,7 @@ const Navbar: FC = () => {
       <Container>
         <NavWrapper>
           <Link to='/'>
-            <img src={logo} alt="ciniPhile-logo" />
+            <img src={logo} alt="ciniPhile-logo" loading='lazy' />
           </Link>
           <NavList>
             {navLinks.map((item) => (
@@ -130,7 +130,7 @@ const Navbar: FC = () => {
             ))}
             <NavListItem>
               <NavLinks to={'/search'}>
-                <img src={search} alt="search-icon" />
+                <img src={search} alt="search-icon" loading='lazy' />
               </NavLinks>
             </NavListItem>
           </NavList>
