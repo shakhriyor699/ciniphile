@@ -299,6 +299,7 @@ const FullMovie: FC = () => {
 
   useEffect(() => {
     dispatch(loadMovie(Number(filmsId)))
+    window.scrollTo(0, 0)
   }, [filmsId])
 
   useEffect(() => {

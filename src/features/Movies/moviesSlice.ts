@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IMovie } from "../../types/types";
+import { RootState } from "../../store";
 
 
 interface IMovieState {
@@ -10,8 +11,8 @@ interface IMovieState {
 
 export const loadMovies = createAsyncThunk(
   '@@movies/loadMovie',
-  async (_, { dispatch, rejectWithValue }) => {
-    const res = await axios.get<IMovie>(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=1`)
+  async (count: number | undefined = 1, { dispatch, rejectWithValue }) => {
+    const res = await axios.get<IMovie>(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU&page=${count}`)
     const { data } = res
     dispatch(addMovies(data))
 
@@ -22,7 +23,7 @@ export const loadMovies = createAsyncThunk(
 )
 
 const initialState: IMovieState = {
-  list: {results: []}
+  list: { results: [] }
 }
 
 
@@ -30,7 +31,7 @@ const moviesSlice = createSlice({
   name: '@@movies',
   initialState,
   reducers: {
-    addMovies: (state, action: PayloadAction<IMovie>) => {
+    addMovies: (state, action) => {
       state.list = action.payload
     }
   }
@@ -41,3 +42,4 @@ const { addMovies } = moviesSlice.actions
 
 
 export const moviesReducer = moviesSlice.reducer
+export const selectMovies = (state: RootState) => state.movies.list.results
