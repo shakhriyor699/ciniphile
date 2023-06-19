@@ -154,10 +154,11 @@ interface IProps {
   openMovieInfo?: boolean
   setOpenMovieInfo: React.Dispatch<React.SetStateAction<boolean>>
   result: ResultsTypes,
-  loading: boolean
+  loading: boolean,
+  page: string
 }
 
-const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem, openMovieInfo, setOpenMovieInfo }) => {
+const MoviesInfo: FC<IProps> = ({ page, result, loading, movieInfoItem, serialInfoItem, openMovieInfo, setOpenMovieInfo }) => {
 
   const dispatch = useAppDispatch()
   const { cast } = useAppSelector(state => state.movieActors.list)
@@ -213,7 +214,7 @@ const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem
                   ))
                 }
               </ActorsBlock>
-              <Button page={'films'} id={result.id} />
+              <Button page={page} id={result.id} />
             </MoviesInfoContent>
           </MoviesInfoItem>
         </MoviesInfoBlock>
