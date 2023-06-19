@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ResultsTypes } from "../../types/types";
+import { RootState } from "../../store";
 
 
 interface IMovieState {
@@ -44,3 +45,4 @@ const serialSlice = createSlice({
 
 
 export const serialReducer = serialSlice.reducer
+export const selectSerial = (state: RootState) => state.serial.list

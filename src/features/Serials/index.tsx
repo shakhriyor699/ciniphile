@@ -153,7 +153,7 @@ const Serial: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      <MoviesInfo loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} serialInfoItem={serialInfo?.id} />
+      <MoviesInfo page="serials" loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} serialInfoItem={serialInfo?.id} />
     </MoviesWrapper>
   )
 }

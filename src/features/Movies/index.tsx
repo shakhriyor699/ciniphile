@@ -157,7 +157,7 @@ const Movies: FC = () => {
           </AllMoviesLink>
         </SliderItem>
       </SwiperWrapper>
-      {<MoviesInfo loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo?.id} />}
+      {<MoviesInfo page='films' loading={loading} result={result} setOpenMovieInfo={setOpenMovieInfo} openMovieInfo={openMovieInfo} movieInfoItem={movieInfo?.id} />}
     </MoviesWrapper>
   )
 }

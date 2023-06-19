@@ -4,6 +4,7 @@ import Loader from './components/Loader';
 // import Films from './pages/Films';
 import Home from './pages/Home';
 import FullMovie from './components/FullMovie';
+import FullSerial from './components/FullSerial';
 // import Search from './pages/Search';
 // import Serials from './pages/Serials';
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='/films' element={<Films />} />
           <Route path='/films/:filmsId' element={<FullMovie />} />
           <Route path='/serials' element={<Serials />} />
+          <Route path='/serials/:serialId' element={<FullSerial />} />
           <Route path='/search' element={<Search />} />
         </Routes>
       </Suspense>
