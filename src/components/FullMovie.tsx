@@ -10,7 +10,7 @@ import { loadTrailer, selectTrailer } from '../features/Trailer';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loadMovieActors } from '../features/Movie/movieActorsSlice';
 import ActorsInfo from '../UI/ActorsInfo';
-import { loadRecomendations,  selectRecomendations } from '../features/recomendations';
+import { loadRecomendations, selectRecomendations } from '../features/recomendations';
 import { Container } from './Container';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
@@ -292,7 +292,7 @@ const FullMovie: FC = () => {
 
   useEffect(() => {
     dispatch(loadTrailer({ type: 'movie', id: filmsId }))
-    dispatch(loadMovieActors(Number(filmsId)))
+    dispatch(loadMovieActors({ movieId: Number(filmsId), type: 'movie' }))
     dispatch(loadRecomendations({ type: 'movie', id: filmsId }))
   }, [])
 

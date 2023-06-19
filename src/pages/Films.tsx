@@ -75,6 +75,7 @@ const Films: FC = () => {
   }, [results, loading])
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     document.addEventListener('scroll', scroollHandler)
     return () => {
       document.removeEventListener('scroll', scroollHandler)
@@ -82,7 +83,7 @@ const Films: FC = () => {
   }, [])
 
   console.log(loading);
-  
+
 
   const scroollHandler = (e: any) => {
     if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
@@ -106,11 +107,12 @@ const Films: FC = () => {
             {
               items.map(movie => (
                 <FilmsItem to={`/films/${movie.id}`} key={movie.id}>
-                  <img src={`${img_original}${movie.poster_path}`} alt="" />
+                  <img src={`${img_original}${movie.poster_path}`} alt="" loading='lazy' />
                   <span>{movie.title}</span>
                 </FilmsItem>
               ))
             }
+            {loading && <div>LOADING</div>}
           </FilmsContent>
         </Container>
       </FilmsMain>

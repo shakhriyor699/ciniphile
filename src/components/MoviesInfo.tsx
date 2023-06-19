@@ -165,14 +165,18 @@ const MoviesInfo: FC<IProps> = ({ result, loading, movieInfoItem, serialInfoItem
 
 
   useEffect(() => {
-    dispatch(loadMovie(movieInfoItem))
-    dispatch(loadMovieActors(movieInfoItem))
-
+    if (openMovieInfo) {
+      dispatch(loadMovie(movieInfoItem))
+      dispatch(loadMovieActors({ movieId: movieInfoItem, type: 'movie' }))
+    }
     // eslint-disable-next-line
   }, [movieInfoItem])
 
   useEffect(() => {
-    dispatch(loadSerial(serialInfoItem))
+    if (openMovieInfo) {
+      dispatch(loadSerial(serialInfoItem))
+      dispatch(loadMovieActors({ movieId: serialInfoItem, type: 'tv' }))
+    }
   }, [serialInfoItem])
 
   const handleClose = () => {

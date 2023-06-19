@@ -22,11 +22,18 @@ type MovieActorsType = {
   crew: MovieType[]
 }
 
+type argAsyncType = {
+  movieId: number | string | undefined,
+  type: string | undefined
+}
 
-export const loadMovieActors = createAsyncThunk<MovieActorsType, number | undefined>(
+
+export const loadMovieActors = createAsyncThunk<MovieActorsType, argAsyncType>(
   '@@movieActors/loadMovieActors',
-  async (movieId) => {
-    const { data } = await axios.get<MovieActorsType>(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
+  async ({ movieId, type }) => {
+    const { data } = await axios.get<MovieActorsType>(`https://api.themoviedb.org/3/${type}/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
+    console.log(data);
+    
     return data
   }
 )
