@@ -26,7 +26,8 @@ export type ResultsTypes = {
   vote_count?: number,
   list?: [],
   genres?: IGenres[] | undefined,
-  status?: string
+  status?: string,
+  media_type?: string
 }
 
 

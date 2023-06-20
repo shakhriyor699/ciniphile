@@ -32,8 +32,6 @@ export const loadMovieActors = createAsyncThunk<MovieActorsType, argAsyncType>(
   '@@movieActors/loadMovieActors',
   async ({ movieId, type }) => {
     const { data } = await axios.get<MovieActorsType>(`https://api.themoviedb.org/3/${type}/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru-RU`)
-    console.log(data);
-    
     return data
   }
 )

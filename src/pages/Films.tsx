@@ -82,12 +82,10 @@ const Films: FC = () => {
     }
   }, [])
 
-  console.log(loading);
 
 
   const scroollHandler = (e: any) => {
     if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
-      console.log('asd');
       setLoading(true)
     }
   }

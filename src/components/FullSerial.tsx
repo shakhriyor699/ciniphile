@@ -288,7 +288,7 @@ const FullSerial: FC = () => {
       info: data.original_title
     },
   ]
-  console.log(results);
+
   
 
   useEffect(() => {
