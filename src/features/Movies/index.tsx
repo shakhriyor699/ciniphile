@@ -36,6 +36,10 @@ const SwiperWrapper = styled(Swiper)`
   padding: 0 100px;
   user-select: none;
 
+  @media(max-width: 620px) {
+    padding: 0 10px;
+  }
+
   & .swiper-button-prev, & .swiper-button-next { 
     opacity: 1;
     color: #FFFFFF;
@@ -123,8 +127,8 @@ const Movies: FC = () => {
           320: {
             slidesPerView: 1,
           },
-          576: {
-            slidesPerView: 2,
+          620: {
+            slidesPerView: 1,
           },
           900: {
             slidesPerView: 3,

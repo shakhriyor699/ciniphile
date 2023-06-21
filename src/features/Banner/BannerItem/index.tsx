@@ -42,6 +42,10 @@ const BannerItemTitle = styled.h1`
   color: #FFFFFF;
   font-family: 'Raleway-Bold';
   text-align: center;
+
+  @media(max-width: 620px) {
+    font-size: 45px;
+  }
 `
 const BannerItemText = styled.p`
   font-size: 20px;
@@ -51,6 +55,13 @@ const BannerItemText = styled.p`
   font-family: 'Raleway-Regular';
   max-width: 960px;
   width: 100%;
+
+  @media(max-width: 620px) {
+    font-size: 16px;
+  }
+  @media(max-width: 480px) {
+   line-height: 20px;
+  }
 `
 
 const BannerItemNext = styled.div`
@@ -71,6 +82,10 @@ const BannerItemNext = styled.div`
     border-radius: 10px 10px 0px 0px;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media(max-width: 868px) {
+    display: none;
   }
 `
 

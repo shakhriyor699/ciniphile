@@ -14,6 +14,11 @@ import { img_original } from '../../config/config';
 const TopMoviesWrapper = styled.div`
   background: #FFFFFF;
   padding: 30px 0 90px 100px;
+
+  @media(max-width: 480px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 `
 const TopMoviesTitle = styled.h2`
   font-size: 30px;
